@@ -18,7 +18,7 @@ from WholesalePred.NoPrice import NoPrice
 metadata_model = [('NeuralNetworkRegressionSK', NeuralNetworkRegressionClass)] 
 metadata_model_classification = [('RandomForestClassification', RandomForestClassificationClass)] 
 
-trainRegression = True
+trainRegression = False
 trainClassification = False
 
 models = []
