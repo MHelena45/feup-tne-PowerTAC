@@ -7,6 +7,7 @@ from WholesalePred.Algorithms.RandomForestRegression import RandomForestRegressi
 from WholesalePred.Algorithms.RandomForestClassification import RandomForestClassificationClass
 from WholesalePred.Algorithms.LinearRegression import LinearRegressionClass
 from WholesalePred.Algorithms.NeuralNetwork import CSVDataset, Net
+from WholesalePred.Algorithms.NeuralNetworkRegression import NeuralNetworkRegressionClass
 from WholesalePred.Algorithms.NeuralNetworkClassification import NeuralNetworkClassificationClass
 from sklearn.model_selection import KFold # import KFold
 from matplotlib import pyplot as plt
@@ -331,6 +332,43 @@ def NeuralNetworkClassificationKFolds():
     y_pred = model.sample_predict(X_test)
     model.get_error(y_test,y_pred)    
 
+def NeuralNetworkRegression():
+    model = Model("NeuralNetworkRegression", NeuralNetworkRegressionClass())
+    
+    X,y = getXY('WholesalePred/data.csv')
+
+    print('\nTrain_test_split')
+    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size= 0.8, test_size=0.2, random_state=0)
+
+    # Feature Scaling
+    sc = StandardScaler()
+    X_train = sc.fit_transform(X_train)
+    X_test = sc.transform(X_test)
+
+    model.sample_train(X_train, y_train)
+    
+    y_pred = model.sample_predict(X_test)
+    model.get_error(y_test,y_pred)    
+
+def NeuralNetworkRegressionKFolds():
+    model = Model("NeuralNetworkRegression", NeuralNetworkRegressionClass())
+    
+    X,y = getXY('WholesalePred/data.csv')
+
+    print('\n5-Folds Cross Validation')
+    X_train, X_test, y_train, y_test = KFoldsCrossValidation(X, y)
+
+    # Feature Scaling
+    sc = StandardScaler()
+    X_train = sc.fit_transform(X_train)
+    X_test = sc.transform(X_test)
+
+    model.sample_train(X_train, y_train)
+    
+    y_pred = model.sample_predict(X_test)
+    model.get_error(y_test,y_pred)    
+
+
 
 print('\nRegression:')
 
@@ -341,7 +379,10 @@ LinearRegressionKFolds()
 RandomForestRegressionKFolds()
 
 # NeuralNetwork()
-NeuralNetworkKFolds()
+# NeuralNetworkKFolds()
+
+# NeuralNetworkRegression()
+NeuralNetworkRegressionKFolds()
 
 print('\nClassification:')
 

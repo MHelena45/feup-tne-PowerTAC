@@ -7,6 +7,7 @@ from WholesalePred.Algorithms.LinearRegression import LinearRegressionClass
 from WholesalePred.Algorithms.RandomForestRegression import RandomForestRegressionClass
 from WholesalePred.Algorithms.RandomForestClassification import RandomForestClassificationClass
 from WholesalePred.Algorithms.NeuralNetwork import NeuralNetworkClass
+from WholesalePred.Algorithms.NeuralNetworkRegression import NeuralNetworkRegressionClass
 from WholesalePred.Algorithms.NeuralNetworkClassification import NeuralNetworkClassificationClass
 from WholesalePred.Model import Model
 from WholesalePred.NoPrice import NoPrice
@@ -14,26 +15,29 @@ from WholesalePred.NoPrice import NoPrice
 # metadata_model = [('RandomForestRegression', RandomForestRegressionClass), ('NeuralNetworkRegression', NeuralNetworkClass), ('LinearRegression', LinearRegressionClass)] 
 # metadata_model_classification = [('NeuralNetworkClassification',NeuralNetworkClassificationClass), ('RandomForestClassification', RandomForestClassificationClass)] 
 
-metadata_model = [('RandomForestRegression', RandomForestRegressionClass)] 
+metadata_model = [('NeuralNetworkRegressionSK', NeuralNetworkRegressionClass)] 
 metadata_model_classification = [('RandomForestClassification', RandomForestClassificationClass)] 
 
+trainRegression = True
+trainClassification = False
 
 models = []
 models_classification = []
 
 for model in metadata_model:
-    # models.append(Model(model[0], model[1]() ))
-    models.append(Model(model[0], Model.load_model(model[0])))
-
-# for model in models:
-#     model.train_csv('WholesalePred/data.csv')
+    if trainRegression == True:
+        model = Model(model[0], model[1]() )
+        model.train_csv('WholesalePred/data.csv')
+        models.append( model )
+    else: models.append(Model(model[0], Model.load_model(model[0])))        
 
 for model_classification in metadata_model_classification:
-    # models_classification.append(Model(model_classification[0], model_classification[1]() ))
-    models_classification.append(Model(model_classification[0], Model.load_model(model_classification[0])))
-
-# for model_classification in models_classification:
-#     model_classification.train_csv('WholesalePred/dataClassification.csv')
+    if trainClassification == True:
+        model_classification = Model(model_classification[0], model_classification[1]() )
+        model_classification.train_csv('WholesalePred/dataClassification.csv')
+        models_classification.append( model_classification )
+    else: models_classification.append(Model(model_classification[0], Model.load_model(model_classification[0])))
+        
 
 print('Server is ready!')
 
