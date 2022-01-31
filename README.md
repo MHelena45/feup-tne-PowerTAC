@@ -1,5 +1,5 @@
 # Feup-TNE
-This repository contains the source code relative to the college subject Electronic Business Technologies.
+This repository contains the source code relative to the college subject Electronic Business Technologies.  
 Electronic Business Technologies is a subject of the Informatics Engineering Doctoral Program from FEUP.
 
 ## About Power Trading Agent Competition (PowerTAC)
