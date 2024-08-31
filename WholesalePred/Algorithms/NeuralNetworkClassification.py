@@ -7,7 +7,6 @@ from matplotlib import pyplot as plt
 import matplotlib.patches as mpatches
 import matplotlib.lines as mlines
 
-
 class NeuralNetworkClassificationClass:
     def __init__(self):
         self.model = MLPClassifier(hidden_layer_sizes=(10, 10, 10), max_iter=1000)
@@ -16,8 +15,6 @@ class NeuralNetworkClassificationClass:
         self.model.fit(data_X, data_Y)
  
     def predict(self, data):
-        # TODO test with and without the following line
-        # data = StandardScaler().fit(data)
         return self.model.predict(data)
 
     def train_csv(self, file_path):
@@ -38,11 +35,9 @@ class NeuralNetworkClassificationClass:
 
         # Evaluating the Algorithm
         print(metrics.confusion_matrix(real_value,prediction_value))
-        # print(classification_report(real_value,prediction_value))
         print('f1_score:', metrics.f1_score(real_value, prediction_value, labels=npy.unique(real_value)))
         print('accuracy:', metrics.accuracy_score(real_value, prediction_value))
 
-        
         timeSlot = len(f1_score)
         t = list(range(timeSlot))
         
@@ -58,16 +53,9 @@ class NeuralNetworkClassificationClass:
             plt.title("Neural Network Classification Error")
             plt.savefig("WholesalePred/plots/Classification/NeuralNetworkClassification_Error_" + str(timeSlot) + "Timeslots_with_legend.png")  
 
-
-
     def get_error(self, real_value, prediction_value):
         print('\nNeural Network Classification:')
         print('Predicted value: ', prediction_value[0], '   Real value: ', real_value[0])
-        
-        # Evaluating the Algorithm
-        # print("\nConfusion matrix")
-        # print(metrics.confusion_matrix(real_value,prediction_value))
-        # print(metrics.classification_report(real_value,prediction_value))
 
         f1_score = metrics.f1_score(real_value, prediction_value, labels=npy.unique(real_value))
         print('f1_score:', f1_score)
